@@ -1,0 +1,69 @@
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T12:59:29.987 OF TRAINER: Ash - 123
+	 [ILLEGAL POKEMON INFO] 
+	 Pokémon with nickname Pika is an illegally modified Pokémon thus it was converted into a MissingNo
+	 Reasons why the Pokémon is a modified one:  
+ Legendary pokémon with nickname Pika doesn't have the expected types ( Psychic Grass ) 
+ Legendary pokémon with nickname Pika hasn't been caught using the correct pokéball ( Expected a cherish ball but was a pokeball ) 
+	 Pokémon species: MissingNo 
+	 ATTACK: 0 
+	 DEFENSE: 0 
+	 SPECIAL_ATTACK: 0 
+	 SPECIAL_DEFENSE: 0 
+	 SPEED: 0 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:01:39.544 OF TRAINER: Ash - 123
+	 [ILLEGAL POKEMON INFO] 
+	 Pokémon with nickname Pika is an illegally modified Pokémon thus it was converted into a MissingNo
+	 Reasons why the Pokémon is a modified one:  
+ Legendary pokémon with nickname Pika doesn't have the expected types ( Psychic Grass ) 
+ Legendary pokémon with nickname Pika hasn't been caught using the correct pokéball ( Expected a cherish ball but was a pokeball ) 
+	 Pokémon species: MissingNo 
+	 ATTACK: 0 
+	 DEFENSE: 0 
+	 SPECIAL_ATTACK: 0 
+	 SPECIAL_DEFENSE: 0 
+	 SPEED: 0 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:02:26.061 OF TRAINER: Ash - 123
+	 [ILLEGAL POKEMON INFO] 
+	 Pokémon with nickname Pika is an illegally modified Pokémon thus it was converted into a MissingNo
+	 Reasons why the Pokémon is a modified one:  
+ Legendary pokémon with nickname Pika doesn't have the expected types ( Psychic Grass ) 
+ Legendary pokémon with nickname Pika hasn't been caught using the correct pokéball ( Expected a cherish ball but was a pokeball ) 
+	 Pokémon species: MissingNo 
+	 ATTACK: 0 
+	 DEFENSE: 0 
+	 SPECIAL_ATTACK: 0 
+	 SPECIAL_DEFENSE: 0 
+	 SPEED: 0 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:03:40.788 OF TRAINER: Ash - 123
+	 [ILLEGAL POKEMON INFO] 
+	 Pokémon with nickname Pika is an illegally modified Pokémon thus it was converted into a MissingNo
+	 Reasons why the Pokémon is a modified one:  
+ Legendary pokémon with nickname Pika doesn't have the expected types ( Psychic Grass ) 
+ Legendary pokémon with nickname Pika hasn't been caught using the correct pokéball ( Expected a cherish ball but was a pokeball ) 
+	 Pokémon species: MissingNo 
+	 ATTACK: 0 
+	 DEFENSE: 0 
+	 SPECIAL_ATTACK: 0 
+	 SPECIAL_DEFENSE: 0 
+	 SPEED: 0 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:05:06.784 OF TRAINER: Entrenador_2_pokemon - 123
+	 [ILLEGAL POKEMON INFO] 
+	 Pokémon with nickname Squ is an illegally modified Pokémon thus it was converted into a MissingNo
+	 Reasons why the Pokémon is a modified one:  
+ Pokémon with nickname Squ has over than 504 evs 
+	 Pokémon species: MissingNo 
+	 ATTACK: 0 
+	 DEFENSE: 0 
+	 SPECIAL_ATTACK: 0 
+	 SPECIAL_DEFENSE: 0 
+	 SPEED: 0 
+	 [END OF POKEMON INFO] 

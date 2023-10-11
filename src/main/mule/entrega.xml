@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<http:listener-config name="ListenerConfig" doc:name="HTTP Listener config" doc:id="bf116402-7b54-4b11-9923-bf49acb17a4e">
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<vm:config name="ComprobacionLegendarios" doc:name="VM Config" doc:id="b00e2bda-f93c-47f0-a195-85098115c7c1" >
+		<vm:queues >
+			<vm:queue queueName="comprobacion_legendarios" />
+		</vm:queues>
+	</vm:config>
+	<vm:config name="PokemonLegal" doc:name="VM Config" doc:id="bfe38f6b-ab5d-4535-b8ee-fb47b70aed2e" >
+		<vm:queues >
+			<vm:queue queueName="pokemon_legal" />
+		</vm:queues>
+	</vm:config>
+	<vm:config name="PokemonIlegal" doc:name="VM Config" doc:id="884ff0e5-dcef-4a48-a36a-b2ca97615e2c" >
+		<vm:queues >
+			<vm:queue queueName="pokemon_ilegal" />
+		</vm:queues>
+	</vm:config>
+	<vm:config name="ComputoFinal" doc:name="VM Config" doc:id="f00a03b2-b655-4927-84ad-b5c723a8bbe1" >
+		<vm:queues >
+			<vm:queue queueName="computo_equipo" />
+		</vm:queues>
+	</vm:config>
+	<vm:config name="ComprobacionPokemon" doc:name="VM Config" doc:id="1578be6e-898b-4b75-ba35-b239ee9c7c2f" >
+		<vm:queues >
+			<vm:queue queueName="comprobacion_pokemon" />
+		</vm:queues>
+	</vm:config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="b1446a6f-e3cd-49e7-b2d7-b64d18512333" >
+		<email:smtp-connection host="smtp.gmail.com" port="587" user="anypointuo269412@gmail.com" password="anypointuo269412_pass" >
+			<email:properties >
+				<email:property key="anypointuo269412@gmail.com" value="true" />
+			</email:properties>
+		</email:smtp-connection>
+	</email:smtp-config>
+	<flow name="flow_input_csv" doc:id="a5680362-a38e-4bb1-a006-70dd49bdef7f" >
+		<file:listener doc:name="On New or Updated File" doc:id="ddfac65e-52b6-44e2-8756-9d5cf9de490b" directory="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\input_csv" moveToDirectory="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\read_input" autoDelete="true">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</file:listener>
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="37f52192-4a5c-4f44-82bb-047c1bcae0e8" variableName="full_csv"/>
+		<ee:transform doc:name="Transform Message" doc:id="fa8a9cc5-34c3-48f1-9621-b3092cf46b0b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+input payload application/csv 
+output application/json
+var headers = payload[1]
+---
+payload[0]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<java:new doc:name="New" doc:id="3b6df753-21ff-482c-820b-bba2cfdefeb2" class="org.mule.miw.model.Trainer" constructor="Trainer(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" target="trainer">
+			<java:args ><![CDATA[#[{arg0: payload.trainer_id,
+arg1: payload.name,
+arg2: payload.age,
+arg3: payload.former_competitor
+}]]]></java:args>
+		</java:new>
+		<logger level="INFO" doc:name="Logger" doc:id="a94245d5-d53d-4adc-b951-e21851a5922a" />
+		<ee:transform doc:name="Transform Message" doc:id="6d2317b3-88bd-4630-8e19-5bd04e3e610c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+input payload application/csv header=false
+output application/json
+var headers = vars.full_csv[1]
+---
+vars.full_csv map
+{
+    (headers[0]): $[0],
+    (headers[1]): $[1],
+    (headers[2]): $[2],
+    (headers[3]): $[3],
+    (headers[4]): $[4],
+    (headers[5]): $[5],
+    (headers[6]): $[6],
+    (headers[7]): $[7],
+    (headers[8]): $[8],
+    (headers[9]): $[9],
+    (headers[10]): $[10],
+    (headers[11]): $[11],
+    (headers[12]): $[12],
+    (headers[13]): $[13],
+    (headers[14]): $[14],
+    (headers[15]): $[15],
+    (headers[16]): $[16],
+    (headers[17]): $[17],
+    (headers[18]): $[18],
+} filter ((item, index) -> index > 1)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<foreach doc:name="For Each" doc:id="27d74c81-4386-4b4e-ad89-a5c501c365e0" >
+			<java:new doc:name="New" doc:id="8cfb9761-92da-4041-8fa9-721afb0fa8b8" class="org.mule.miw.model.Pokemon" constructor="Pokemon(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,org.mule.miw.model.Trainer)">
+				<java:args ><![CDATA[#[{
+arg0: payload.nickname,
+arg1: payload.pokemon_name,
+arg2: payload.pokeball,
+arg3: payload.nature,
+arg4: payload.type1,
+arg5: payload.type2,
+arg6: payload.original_trainer,
+arg7: payload.ps,
+arg8: payload.attack,
+arg9: payload.defense,
+arg10: payload.special_attack,
+arg11: payload.special_defense,
+arg12: payload.speed,
+arg13: payload.ps_evs,
+arg14: payload.attack_evs,
+arg15: payload.defense_evs,
+arg16: payload.special_attack_evs,
+arg17: payload.special_defense_evs,
+arg18: payload.speed_evs,
+arg19: vars.trainer
+}]]]></java:args>
+			</java:new>
+			<flow-ref doc:name="Flow Reference" doc:id="f7fe1b88-597c-47fe-a85e-db3bab6fc874" name="comprobacion_pokemon"/>
+			<java:invoke doc:name="Invoke" doc:id="b9a37224-41cf-48a9-b04c-47445dd3fe25" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="getAllStats()" target="stats"/>
+			<java:invoke doc:name="Invoke" doc:id="92d11f2e-83d6-4a82-ac0d-542a0ed36440" instance="#[vars.trainer]" class="org.mule.miw.model.Trainer" method="updateTotal_pokemon_stats(int)">
+				<java:args ><![CDATA[#[arg0: vars.stats]]]></java:args>
+			</java:invoke>
+		</foreach>
+		<java:invoke doc:name="Invoke" doc:id="69a88945-23da-40df-aa07-bec17ba62ea6" instance="#[vars.trainer]" class="org.mule.miw.model.Trainer" method="generateReport()"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a4f6bf5d-0041-4b5f-b4ba-9d08c4af8b85" message="#[payload]"/>
+		<file:write doc:name="Write" doc:id="1c787a2d-7654-42bd-af79-3573ac76ef61" path="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\informe\trainer_info.txt" mode="APPEND"/>
+	</flow>
+	<flow name="flow_index" doc:id="276a7cf9-78d5-4252-8920-979decbf6e73" >
+		<http:listener doc:name="Listener" doc:id="4071bbba-7c4b-4d5d-8773-fddc921e3a50" config-ref="ListenerConfig" path="/entrada"/>
+		<http:load-static-resource doc:name="Load static resource" doc:id="21c9bfa0-5b52-458a-a3c5-52e20133a6b5" resourceBasePath="${mule.home}/apps/${app.name}/docroot/"/>
+	</flow>
+	<flow name="flow_form" doc:id="f2154129-1873-4930-8c25-ea4b545454f5" >
+		<http:listener doc:name="Listener" doc:id="a2a238f5-f825-4625-bf80-ee514854c8c2" config-ref="ListenerConfig" path="/register"/>
+		<set-payload value="#[attributes.queryParams]" doc:name="Set Payload" doc:id="7b867f5e-e504-468b-a05e-0ad90505a6eb" />
+		<java:new doc:name="New" doc:id="649186b8-3639-463e-a810-d540dd386859" class="org.mule.miw.model.Trainer" constructor="Trainer(java.util.HashMap)" target="trainer">
+			<java:args><![CDATA[#[arg0: payload]]]></java:args>
+		</java:new>
+		<java:new doc:name="New" doc:id="4845c448-de5e-4529-8df4-9b93f2317a2c" class="org.mule.miw.model.Pokemon" constructor="Pokemon(java.util.HashMap)">
+			<java:args><![CDATA[#[arg0: payload]]]></java:args>
+		</java:new>
+		<java:invoke doc:name="Invoke" doc:id="0431d4d0-4d7e-4d44-858c-b033f0c2d622" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="setTrainer(org.mule.miw.model.Trainer)" target="complete_pokemon">
+			<java:args ><![CDATA[#[arg0: vars.trainer]]]></java:args>
+		</java:invoke>
+		<flow-ref doc:name="Flow Reference" doc:id="28734448-c7a6-4868-be15-d397b5379cb7" name="comprobacion_pokemon"/>
+		<java:invoke doc:name="Invoke" doc:id="5173aa83-ee27-477f-894e-85faead9aac7" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="getAllStats()" target="stats"/>
+		<java:invoke doc:name="Invoke" doc:id="739ec487-f79e-4d10-bc6e-90d3a2a0956e" instance="#[vars.trainer]" class="org.mule.miw.model.Trainer" method="updateTotal_pokemon_stats(int)">
+			<java:args ><![CDATA[#[arg0: vars.stats]]]></java:args>
+		</java:invoke>
+		<java:invoke doc:name="Invoke" doc:id="e2fbea65-18a9-4fb1-b781-7d230487e041" target="trainer_report" instance="#[vars.trainer]" class="org.mule.miw.model.Trainer" method="generateReport()"/>
+		<logger level="INFO" doc:name="Logger" doc:id="166db765-a3e0-416e-97fa-773f63b7d825" message="#[vars.trainer_report]"/>
+		<file:write doc:name="Write" doc:id="1fa847ce-9e07-4c70-abee-bdd01d96f57d" path="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\informe\trainer_info.txt" mode="APPEND">
+			<file:content ><![CDATA[#[vars.trainer_report]]]></file:content>
+		</file:write>
+	</flow>
+	<sub-flow name="comprobacion_pokemon" doc:id="ca393ae1-5e31-4130-b8db-67a3bed9de58" >
+		<java:invoke doc:name="Invoke" doc:id="c48a1846-3b3d-453f-a652-c37ac1f5d0fb" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="pokemonExists()" target="pokemon_exists" />
+		<choice doc:name="Choice" doc:id="3e63f528-7fbf-4379-9862-252ba204f4f7">
+			<when expression="#[payload.valid_pokemon]">
+				<vm:publish-consume doc:name="Publish consume" doc:id="28feedda-c526-4be7-9725-3cf1c74b3c53" config-ref="ComprobacionLegendarios" queueName="comprobacion_legendarios" timeout="50"/>
+			</when>
+			<otherwise >
+				<java:invoke doc:name="Invoke" doc:id="ca9e46c6-5cd5-4193-bb76-4af91226bb10" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="generateReport()" target="rejected_pokemon"/>
+				<logger level="INFO" doc:name="Logger" doc:id="937763c5-199c-4494-bb37-9f740ea422e2" message="#[vars.rejected_pokemon]"/>
+				<file:write doc:name="Write" doc:id="372753b2-bcdc-4b3e-b994-4931ea4c72f8" path='C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\informe\rejected_pokemons.txt' mode="APPEND">
+					<file:content ><![CDATA[#[vars.rejected_pokemon]]]></file:content>
+				</file:write>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<flow name="flow_comprobacion_legalidad" doc:id="69201917-5ba3-4587-bac8-ab725e62cf8b" >
+		<vm:listener doc:name="Listener" doc:id="8b862624-06a6-431e-8df1-aaf405ba2be9" config-ref="ComprobacionLegendarios" queueName="comprobacion_legendarios"/>
+		<flow-ref doc:name="Flow Reference" doc:id="e92e00a7-69c3-4388-bd75-72c348731800" name="flow_condiciones_legalidad"/>
+		<choice doc:name="Choice" doc:id="e1986be8-9e9b-4232-83b3-03a37c8f4049" >
+			<when expression="#[payload.illegal]">
+				<parse-template doc:name="Parse Template" doc:id="b29b39dd-88aa-49ac-9f06-e9bd169e4e9e" target="template_parsed">
+					<content >The introduced Pokémon was obtained illegally. As such, it will be reconverted to a MissingNo.
+--------------
+Nickname: #[payload.nickname]
+Pokémon species prior to the conversion: #[payload.pokemon_name]
+
+</content>
+				</parse-template>
+				<vm:publish-consume doc:name="Publish consume" doc:id="84592d98-706f-4cf0-8124-21b60d9af886" config-ref="PokemonIlegal" queueName="pokemon_ilegal" timeout="50"/>
+			</when>
+			<otherwise >
+				<parse-template doc:name="Parse Template" doc:id="fc14ec33-75ee-400f-9f0e-7df947dea0d2" target="template_parsed">
+					<content >The introduced Pokémon will be processed and computed.
+--------------
+Nickname: #[payload.nickname]
+Pokémon species: #[payload.pokemon_name]
+</content>
+				</parse-template>
+				<vm:publish-consume doc:name="Publish consume" doc:id="0b2b3e58-e5e7-4c2c-867e-32a92e82884c" config-ref="PokemonLegal" queueName="pokemon_legal" timeout="50"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<sub-flow name="flow_condiciones_legalidad" doc:id="4f6a4d74-bf9a-4b66-bd82-318e59eca228" >
+		<java:invoke doc:name="Invoke" doc:id="c24162fa-b73c-4790-91d2-0cd3261ae0cd" class="org.mule.miw.model.Pokemon" instance="#[payload]" method="comprobacionTiposLegendarios()" target="pokemon_legendario" />
+		<java:invoke method="comprobacionPokeball()" doc:name="Invoke" doc:id="2cbdfa2c-77d4-4b5d-8e3f-3a2fc820578e" instance="#[payload]" class="org.mule.miw.model.Pokemon" target="pokemon_legendario" />
+		<java:invoke method="comprobacionEntrenadorOriginal()" doc:name="Invoke" doc:id="4165a94e-a99d-41af-8504-3e083445c70b" instance="#[payload]" class="org.mule.miw.model.Pokemon" target="pokemon_legendario" />
+	</sub-flow>
+	<flow name="tratamiento_legal" doc:id="d800b18c-97a2-475d-b7c0-c9b2f56faeac" >
+		<vm:listener doc:name="Listener" doc:id="99c93edb-cb25-4b4d-99a9-731814a0ad76" config-ref="PokemonLegal" queueName="pokemon_legal"/>
+		<java:invoke doc:name="Invoke" doc:id="cbd6c396-c3e2-4685-b0ee-11445ab9e9b8" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="comprobacionEVS()" target="pokemon_legal"/>
+		<choice doc:name="Choice" doc:id="e9342cdb-df14-44df-9db0-bb1db0939a33" >
+			<when expression="#[payload.illegal]">
+				<vm:publish-consume queueName="pokemon_ilegal" doc:name="Publish consume" doc:id="52e64fd8-81d0-473a-92b1-ed916093672f" config-ref="PokemonIlegal" timeout="50"/>
+			</when>
+			<otherwise >
+				<flow-ref doc:name="Flow Reference" doc:id="4a97b769-14e0-4133-91ed-8def1b4cd31d" name="tratamiento_evs"/>
+				<vm:publish-consume doc:name="Publish consume" doc:id="54b40355-cad4-4c18-b13a-ca12840a630e" config-ref="ComputoFinal" queueName="computo_equipo" timeout="50"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="flow_final" doc:id="af44e48f-61a1-4462-b627-9e8bf887c3bf" >
+		<vm:listener queueName="computo_equipo" doc:name="Listener" doc:id="a342733f-ec34-4fc8-bb30-85e6dc7cf433" config-ref="ComputoFinal"/>
+		<java:invoke doc:name="Invoke" doc:id="3872be8f-01f2-4f61-bb13-94d91c587081" instance="#[payload]" method="generateReport()" class="org.mule.miw.model.Pokemon" target="informe_pokemon"/>
+		<logger level="INFO" doc:name="Logger" doc:id="156bbeae-907f-4f79-890c-540a510d9c9e" message="#[vars.informe_pokemon]"/>
+		<file:write doc:name="Write" doc:id="822c935b-e45a-484b-a279-a6907858918c" path="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\informe\pokemons.txt" mode="APPEND">
+			<file:content ><![CDATA[#[vars.informe_pokemon]]]></file:content>
+		</file:write>
+	</flow>
+	<sub-flow name="tratamiento_evs" doc:id="8500638d-f635-4358-a82a-e531c374af58" >
+		<java:invoke doc:name="Invoke" doc:id="1f539df7-69fe-47f4-9883-0ddd5026d88b" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="computarEVS()" target="pokemon_evs"/>
+		<java:invoke doc:name="Invoke" doc:id="8533a481-d1ba-4429-b1dc-8f8f223fe1a6" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="resetEVS()" target="pokemon_evs"/>
+	</sub-flow>
+	<flow name="tratamiento_ilegal" doc:id="242fa5a8-7cd4-41bf-a1fd-425a82fd3cc9" >
+		<vm:listener doc:name="Listener" doc:id="4eb534f1-1c4f-4496-99b7-132e38140171" config-ref="PokemonIlegal" queueName="pokemon_ilegal"/>
+		<java:invoke doc:name="Invoke" doc:id="777c0124-1791-4000-a3ac-1b688703ca52" instance="#[payload]" class="org.mule.miw.model.Pokemon" method="tratamientoPokemonIlegal()" target="trat_pokemon_ilegal"/>
+		<java:invoke doc:name="Invoke" doc:id="a92daf26-b94f-4200-aa18-18c8255291e0" class="org.mule.miw.model.Pokemon" instance="#[payload]" method="generateReport()" target="pokemon_ilegal_report"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4814bdbf-bf7e-44cc-b296-c9e8e2503f5a" message="#[vars.pokemon_ilegal_report]"/>
+		<file:write doc:name="Write" doc:id="866ab739-f6de-4bf4-aa7e-531cfd7d87aa" path="C:\Users\javie\AnypointStudio\studio-workspace\entrega\src\informe\illegal_pokemons.txt" mode="APPEND" >
+			<file:content ><![CDATA[#[vars.pokemon_ilegal_report]]]></file:content>
+		</file:write>
+		<vm:publish-consume queueName="computo_equipo" doc:name="Publish consume" doc:id="bd2a0d9b-4dcd-455f-ad20-4f608af6d9fb" config-ref="ComputoFinal" timeout="50"/>
+	</flow>
+</mule>

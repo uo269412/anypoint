@@ -1,0 +1,80 @@
+<html>
+<body>
+	<h1>Pokemon tournament entry survey</h1>
+	<h2>Please, fill the information we require</h2>
+	<br />
+	<form action="/register" method="GET">
+		Trainer ID: <input type="text" name="trainer_id" /><br /> 
+		Name: <input type="text" name="name" /><br /> 
+		Age: <input type="text" name="age" /><br /> 
+		Are you a former competitor?
+		<select name="former_competitor">
+			<option value="false">No</option>
+			<option value="true">Yes</option>
+		</select><br/>
+		<h2>Enter your signature pokemon data</h2>
+		Nickname: <input type="text" name="nickname" /><br /> 
+		Pokemon species: <input type="text" name="pokemon_name" /><br /> 
+		Nature: <input type="text" name="nature" /><br /> 
+		Original trainer name: <input type="text" name="original_trainer" /><br /> 
+		HP (PS): <input type="text" name="ps" /><br />
+	    Attack: <input type="text" name="attack" /><br />
+	    Defense: <input type="text" name="defense" /><br />
+	    Special Attack: <input type="text" name="special_attack" /><br />
+	    Special Defense: <input type="text" name="special_defense" /><br />
+	    Speed: <input type="text" name="speed" /><br />
+	    HP EVs (Effort Values): <input type="text" name="ps_evs" /><br />
+	    Attack EVs (Effort Values): <input type="text" name="attack_evs" /><br />
+	    Defense EVs (Effort Values): <input type="text" name="defense_evs" /><br />
+	    Special Attack EVs (Effort Values): <input type="text" name="special_attack_evs" /><br />
+	    Special Defense EVs (Effort Values): <input type="text" name="special_defense_evs" /><br />
+	    Speed EVs (Effort Values): <input type="text" name="speed_evs" /><br />
+	    	</select> <br /> Pokeball <select name="pokeball">
+	       		<option value="pokeball">Pokeball</option>
+		        <option value="greatball">Great Ball</option>
+		        <option value="ultraball">Ultra Ball</option>
+		        <option value="masterball">Master Ball</option>
+		        <option value="cherishball">Cherish Ball</option>
+	    	</select> <br /> Type 1 <select name="type1">
+	 		<option value="fire">Fire</option>
+	        <option value="water">Water</option>
+	        <option value="grass">Grass</option>
+	        <option value="electric">Electric</option>
+	        <option value="rock">Rock</option>
+	        <option value="ground">Ground</option>
+	        <option value="psychic">Psychic</option>
+	        <option value="dark">Dark</option>
+	        <option value="fighting">Fighting</option>
+	        <option value="flying">Flying</option>
+	        <option value="poison">Poison</option>
+	        <option value="bug">Bug</option>
+	        <option value="ghost">Ghost</option>
+	        <option value="steel">Steel</option>
+	        <option value="ice">Ice</option>
+	        <option value="dragon">Dragon</option>
+	        <option value="fairy">Fairy</option>
+		</select> <br /> Type 2 <select name="type2">
+			<option value="none">None</option>
+	 		<option value="fire">Fire</option>
+	        <option value="water">Water</option>
+	        <option value="grass">Grass</option>
+	        <option value="electric">Electric</option>
+	        <option value="rock">Rock</option>
+	        <option value="ground">Ground</option>
+	        <option value="psychic">Psychic</option>
+	        <option value="dark">Dark</option>
+	        <option value="fighting">Fighting</option>
+	        <option value="flying">Flying</option>
+	        <option value="poison">Poison</option>
+	        <option value="bug">Bug</option>
+	        <option value="ghost">Ghost</option>
+	        <option value="steel">Steel</option>
+	        <option value="ice">Ice</option>
+	        <option value="dragon">Dragon</option>
+	        <option value="fairy">Fairy</option>
+		</select> <br /> 
+		<input type="submit" value="Enter data" />
+	</form>
+
+</body>
+</html>

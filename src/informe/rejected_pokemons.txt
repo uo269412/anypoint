@@ -1,0 +1,15 @@
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T12:51:03.194 OF TRAINER: Ash - 123
+	 [INVALID POKEMON INFO] 
+	 Pokémon with nickname Pika doesn't exist 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:05:06.771 OF TRAINER: Entrenador_2_pokemon - 123
+	 [INVALID POKEMON INFO] 
+	 Pokémon with nickname Pika doesn't exist 
+	 [END OF POKEMON INFO] 
+
+ -> OPERATION REGISTER POKEMON LOG: 2023-09-23T13:19:18.549 OF TRAINER: entrenador_input - 54
+	 [INVALID POKEMON INFO] 
+	 Pokémon with nickname bu doesn't exist 
+	 [END OF POKEMON INFO] 

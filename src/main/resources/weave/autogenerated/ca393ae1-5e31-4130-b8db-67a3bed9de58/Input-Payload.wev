@@ -1,0 +1,42 @@
+%dw 2.0
+
+type auto_ca393ae1_5e31_4130_b8db_67a3bed9de58_Input_Payload = {|
+  allStats?: Number, 
+  attack?: Number, 
+  attack_evs?: Number, 
+  calificacion?: Number, 
+  defense?: Number, 
+  defense_evs?: Number, 
+  illegal?: Boolean {"typeId": "boolean"}, 
+  illegal_reasoning?: String, 
+  legendary?: Boolean {"typeId": "boolean"}, 
+  nature?: String, 
+  nickname?: String, 
+  original_trainer?: String, 
+  pokeball?: String, 
+  pokemon_name?: String, 
+  ps?: Number, 
+  ps_evs?: Number, 
+  special_attack?: Number, 
+  special_attack_evs?: Number, 
+  special_defense?: Number, 
+  special_defense_evs?: Number, 
+  speed?: Number, 
+  speed_evs?: Number, 
+  trainer?: org_mule_miw_model_Trainer, 
+  type1?: String, 
+  type2?: String, 
+  valid_pokemon?: Boolean {"typeId": "boolean"}
+|} {"typeAlias": "Pokemon",
+"typeId": "org.mule.miw.model.Pokemon"}
+type org_mule_miw_model_Trainer = {|
+  age?: Number, 
+  calificacion?: Number, 
+  former_competitor?: Boolean {"typeId": "boolean"}, 
+  name?: String, 
+  trainer_id?: String
+|} {"typeAlias": "Trainer",
+"typeId": "org.mule.miw.model.Trainer"}
+
+
+

@@ -1,0 +1,36 @@
+
+ -> OPERATION REGISTER TRAINER LOG: 2023-09-23T13:02:26.082 OF TRAINER: Ash - 123 [TRAINER STATUS] 
+Trainer ID: 123 
+Name: Ash 
+Age: 14 
+Already a competitor? true 
+Total number of registered Pokémon: 1 
+Average Pokémon stats: 0 
+[END OF TRAINER REPORT] 
+
+ -> OPERATION REGISTER TRAINER LOG: 2023-09-23T13:03:40.794 OF TRAINER: Ash - 123 [TRAINER STATUS] 
+Trainer ID: 123 
+Name: Ash 
+Age: 14 
+Already a competitor? true 
+Total number of registered Pokémon: 1 
+Average Pokémon stats: 0 
+[END OF TRAINER REPORT] 
+
+ -> OPERATION REGISTER TRAINER LOG: 2023-09-23T13:05:06.790 OF TRAINER: Entrenador_2_pokemon - 123 [TRAINER STATUS] 
+Trainer ID: 123 
+Name: Entrenador_2_pokemon 
+Age: 14 
+Already a competitor? true 
+Total number of registered Pokémon: 2 
+Average Pokémon stats: 425 
+[END OF TRAINER REPORT] 
+
+ -> OPERATION REGISTER TRAINER LOG: 2023-09-23T13:19:34.019 OF TRAINER: entrenador_input - 54 [TRAINER STATUS] 
+Trainer ID: 54 
+Name: entrenador_input 
+Age: 24 
+Already a competitor? false 
+Total number of registered Pokémon: 1 
+Average Pokémon stats: 120 
+[END OF TRAINER REPORT] 

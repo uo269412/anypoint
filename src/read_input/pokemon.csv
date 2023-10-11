@@ -1,0 +1,5 @@
+trainer_id,name,age,former_competitor
+123,Entrenador_2_pokemon,14,true
+nickname,pokemon_name,pokeball,nature,type1,type2,original_trainer,ps,attack,defense,special_attack,special_defense,speed,ps_evs,attack_evs,defense_evs,special_attack_evs,special_defense_evs,speed_evs
+Pika,Pikachi,pokeball,Adamant,Electric,none,123,100,200,50,300,75,125,0,0,0,255,4,255
+Squ,Squirtle,pokeball,Calm,Water,none,123,100,200,50,300,75,125,0,0,0,255,4,255
