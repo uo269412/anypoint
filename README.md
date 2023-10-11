@@ -1,4 +1,4 @@
-# Diseño e Integración de Aplicaciones Internet Curso: 2023-2024 Pra ctica Fiñal: Registro de Pokémon y entrenadores
+# Diseño e Integración de Aplicaciones Internet Curso: 2023-2024 Práctica Final: Registro de Pokémon y entrenadores
 
 ## Temática y lógica de negocio
 
